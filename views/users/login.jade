@@ -4,7 +4,7 @@ block content
   div.row
     div.col-xs-4
     div.col-xs-4
-      form(class="form-signin", role="form", action="/users/login", method="post", id="myFrm")
+      form(class="form-signin", role="form", action="/users/login", method="post", id="myFrm" novalidate)
         h3.form-signin-heading Please Login
         if error
           span.error= error
@@ -15,3 +15,15 @@ block content
         <input name="password" type="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
     div.col-xs.4
+    script.
+      jQuery(document).ready(function(){
+        validate.register('myFrm', {
+          email:{required:true, email:true}, 
+          password:'required', 
+          
+          messages:{
+            email:{required:'Please enter valid email id', email:'Please enter a valid email id'},
+            password:'Password is required.'
+          }
+        });
+      });

@@ -17,5 +17,13 @@ block content
     div.col-xs.3
     script.
       jQuery(document).ready(function(){
-        validate('myFrm', {name:'required', email:{required:true, email:true}, messages:{name:'Name is required.', email:{required:'Please enter valid email id', 'email':'Please enter a valid emailid'}}});
+        validate.register('myFrm', {
+          name:'required', 
+          email:{required:true, email:true}, 
+          
+          messages:{
+            name:'Name is required.', 
+            email:{required:'Please enter valid email id', email:'Please enter a valid emailid'}
+          }
+        });
       });
