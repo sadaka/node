@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  h1 List of Users
+  span.logout
+    a(href=baseUrl+'/add') add user
+  if message
+    span.msg= message
+  if error
+    span.error= error 
+  else
+    table(class="table table-striped")
+      tr
+        th SNo.
+        th Name
+        th Email
+        th Address
+        th Access
+        
+      each user,i in users
+        tr
+          td=i+start+1
+          td=user.name
+          td=user.email 
+          td=user.address
+          td=user.access_type
+    div.text-center!= pages

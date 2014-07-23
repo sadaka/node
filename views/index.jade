@@ -1,0 +1,7 @@
+extends layout
+block content  
+  if error
+    span.error= error
+  if message
+    span.msg= message
+  p your dashboard

@@ -1,0 +1,17 @@
+extends ../login-layout
+
+block content  
+  div.row
+    div.col-xs-4
+    div.col-xs-4
+      form(class="form-signin", role="form", action="/users/login", method="post", id="myFrm")
+        h3.form-signin-heading Please Login
+        if error
+          span.error= error
+        if message
+          span.msg= message
+        -var email = locals.email || ''
+        input.form-control(name="email", placeholder="Email address" required autofocus type="email" value='#{email}')
+        <input name="password" type="password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    div.col-xs.4

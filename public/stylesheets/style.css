@@ -1,0 +1,22 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+a.selected{font-weight:bold;text-decoration:underline;}
+h2.logo{color:#999;font-weight:bold;}
+p.title{color:#555;font-weight:normal;font-size:1em;}
+button,input{margin:5px 0px;}
+span.error{color:red;font-size:.9em;}
+span.msg{color:green;font-size:.9em;}
+span.logout{float:right;}
+span.logout a{font-style:none;text-decoration:none;}
+span.logout a:hover{color:#333;font-style:none;text-decoration:none;}
+div.row-top{line-height:1.6em;padding:3px;background:#eee;color:#888;font-size:.9em;}
+div.paginator{}
+div.paginator a{margin:0px 3px;}
+div.paginator a.paginator-previous{}
+div.paginator a.paginator-page{}
+div.paginator a.paginator-current{color:#888;}
