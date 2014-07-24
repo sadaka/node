@@ -7,6 +7,7 @@ var Users = function(con){
 };
 
 Users.prototype.findAll = function(callback){
+  // it fetches all the records from users table
   var limit = '';
   if(this.limit_start)
     limit = ' limit '+ this.limit_start;
