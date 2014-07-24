@@ -7,6 +7,7 @@ var Users = function(con){
 };
 
 Users.prototype.findAll = function(callback){
+  // oh sorry! it's a conflict
   var limit = '';
   if(this.limit_start)
     limit = ' limit '+ this.limit_start;
