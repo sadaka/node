@@ -7,11 +7,16 @@ block content
       form(id='myFrm' class="form-signin", role="form", action="/users/add", method="post" novalidate)
         h3.form-signin-heading Add new user
         if error
-          span.error #{error}
-        <input name="name" type="name" class="form-control" placeholder="User Name" required autofocus>
-        <input name="email" type="email" class="form-control" placeholder="Email address" required>
-        <input name="password" type="password" class="form-control" placeholder="Password" required>
-        <textarea name="address" class="form-control" placeholder="Users address"></textarea>
+          span.error= error
+          
+        -var email = locals.email || ''
+        -var name = locals.name || ''
+        -var password = locals.password || ''          
+        -var address = locals.address || ''          
+        input(name="name" type="name" class="form-control" placeholder="User Name" required autofocus value="#{name}")
+        input(name="email" type="email" class="form-control" placeholder="Email address" required value="#{email}")
+        input(name="password" type="password" class="form-control" placeholder="Password" required value="#{password}")
+        textarea(name="address" class="form-control" placeholder="Users address")= address
         <button class="btn btn-lg btn-primary " type="submit">Submit</button>
         <button class="btn btn-lg btn-primary" type="button" onClick="window.location.href='./';">Cancel</button>
     div.col-xs.3

@@ -42,7 +42,18 @@ Users.prototype.getRecordsCount = function(callback){
 
 
 Users.prototype.findById = function(id, callback){
-  this.db.query('select * from users where id = '+id, function(error, data) {
+  var q = 'select * from users where id = '+id;
+  this.db.query(q, function(error, data) {
+    if( error ) 
+      callback(error);
+    else 
+      callback(null, data);
+  });
+};
+
+Users.prototype.deleteById = function(id, callback){
+  var q = 'update users set status=0 where id = '+this.db.escape(id);
+  this.db.query(q, function(error, data) {
     if( error ) 
       callback(error);
     else 
@@ -51,11 +62,13 @@ Users.prototype.findById = function(id, callback){
 };
 
 Users.prototype.emailExists = function(email, callback){
-  this.db.query('select count(*) as mycount from users where email = '+this.db.escape(email), function(error, data) {
+  this.db.query('select id from users where email = '+this.db.escape(email), function(error, data) {
+  
+    console.log(data.length);
     if( error ) 
       callback(error);
     else 
-      callback(null, data[0].mycount > 0?true:false);
+      callback(null, (data.length > 0) ?data[0].id:false);
       
   });
 };
@@ -63,9 +76,7 @@ Users.prototype.emailExists = function(email, callback){
 Users.prototype.save = function(data, callback){
   myCon = this.db;
   this.emailExists(data['email'], function(error, emailExists){
-    if(emailExists == true){
-      callback({code:'Email already exists!'});
-    }else{  
+    if(emailExists == false){
       var subq = '';
       for(i in data){
         subq += (subq =='')?i + '= '+ myCon.escape(data[i])+'':', ' +i +' = '+ myCon.escape(data[i])
@@ -76,6 +87,28 @@ Users.prototype.save = function(data, callback){
         else 
           callback(null, data);
       });
+    }else{
+      callback({code:'Email already exists!'});
+    }
+  })  
+};
+
+Users.prototype.update = function(id, data, callback){
+  myCon = this.db;
+  this.emailExists(data['email'], function(error, emailExists){
+    if(emailExists == false || emailExists == id){
+      var subq = '';
+      for(i in data){
+        subq += (subq =='')?i + '= '+ myCon.escape(data[i])+'':', ' +i +' = '+ myCon.escape(data[i])
+      }
+      myCon.query('update users set  '+subq +' where id = '+myCon.escape(id), function(error, data) {
+        if( error ) 
+          callback(error);
+        else 
+          callback(null, data);
+      });
+    }else{
+      callback({code:'Email already exists!'});
     }
   })  
 };

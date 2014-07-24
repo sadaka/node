@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  div.row
+    div.col-xs-3
+    div.col-xs-6
+      form(id='myFrm' class="form-signin", role="form", action="/users/edit/#{id}", method="post" novalidate)
+        h3.form-signin-heading Add new user
+        if error
+          span.error #{error}
+          
+        -var email = locals.email || ''
+        -var name = locals.name || ''
+        -var address = locals.address || ''
+        input(name="name" type="name" class="form-control" placeholder="User Name" value="#{name}" required autofocus)
+        input(name="email" type="email" class="form-control" placeholder="Email address" value="#{email}" required)
+        textarea(name="address" class="form-control" placeholder="Users address")=address
+        <button class="btn btn-lg btn-primary " type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary" type="button" onClick="window.location.href='../';">Cancel</button>
+    div.col-xs.3
+    script.
+      jQuery(document).ready(function(){
+        validate.register('myFrm', {
+          name:'required', 
+          email:{required:true, email:true}, 
+          
+          messages:{
+            name:'Name is required.', 
+            email:{required:'Please enter valid email id', email:'Please enter a valid emailid'}
+          }
+        });
+      });
