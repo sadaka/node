@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  div.row
+    div.col-xs-3
+    div.col-xs-6
+      form(id='myFrm' class="form-signin", role="form", action="/levels/add", method="post" novalidate)
+        h3.form-signin-heading Add new institute
+        if error
+          span.error= error
+          
+        -var level = locals.level || ''
+        -var name = locals.name || ''
+        -var parent_id = locals.parent_id || ''          
+        input(name="name" type="name" class="form-control" placeholder="Level Name" required autofocus value="#{name}")
+        input(name="level" type="name" class="form-control" placeholder="Level  [Nursery, Primary, Secondary, Senior Secondary, graduate, post graduate, masters, Phd, Doctrate]" required value="#{level}")
+        select(name="parent_id" class="form-control" )
+          option(value="") Select parent level
+          option(value="0") Parent
+          if ps
+            each p,i in ps
+              option(value="#{p.id}")= p.name
+        <button class="btn btn-lg btn-primary " type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary" type="button" onClick="window.location.href='./';">Cancel</button>
+    div.col-xs.3
+    script.
+      jQuery(document).ready(function(){
+        validate.register('myFrm', {
+          name:'required', 
+          type:'required', 
+          
+          messages:{
+            name:'Name is required.', 
+            type:'Please select institute type'
+          }
+        });
+      });

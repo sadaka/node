@@ -9,6 +9,11 @@ var validate = {
     youtubeUrl:/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/,
     url:/^((https?|ftp):\/\/|(www|ftp)\.)[a-z0-9-]+(\.[a-z0-9-]+)+([\/?].*)?$/i
   },
+  addRegex:function(exp){
+    for(i in exp){
+      this.regex.i=exp[i];
+    }
+  },
   register:function(formId, rules, conf){
     this.rules = rules;
     this.formId = formId;

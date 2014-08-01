@@ -8,7 +8,7 @@ a {
 a.selected{font-weight:bold;text-decoration:underline;}
 h2.logo{color:#999;font-weight:bold;}
 p.title{color:#555;font-weight:normal;font-size:1em;}
-button,input{margin:5px 0px;}
+button,input, select{margin:5px 0px;}
 span.error{color:red;font-size:.9em;}
 span.msg{color:green;font-size:.9em;}
 span.logout{float:right;}

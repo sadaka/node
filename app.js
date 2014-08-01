@@ -11,11 +11,24 @@ var session = require('express-session');
 var config = require('./config/config');
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var institutions = require('./routes/institutions');
+var levels = require('./routes/levels');
 var mysql = require('./config/mysql');
+
 
 __myCon = mysql(config.db.host, config.db.user, config.db.password, config.db.database);
 
 var app = express();
+app.use(require('express-domain-middleware'));
+
+app.use(function errorHandler(err, req, res, next) {
+  console.log('error on request %d %s %s: %j', process.domain.id, req.method, req.url, err);
+  res.send(500, "Something bad happened. :(");
+  if(err.domain) {
+    //you should think about gracefully stopping & respawning your server
+    //since an unhandled error might put your application into an unknown state
+  }
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +66,8 @@ app.use(function(req, res, next){
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/institutions', institutions);
+app.use('/levels', levels);
 
 
 /// catch 404 and forward to error handler

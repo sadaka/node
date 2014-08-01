@@ -1,0 +1,44 @@
+extends ../layout
+
+block content
+  div.row
+    div.col-xs-3
+    div.col-xs-6
+      form(id='myFrm' class="form-signin", role="form", action="/institutions/edit/#{id}", method="post" novalidate)
+        h3.form-signin-heading Edit institute
+        if error
+          span.error #{error}
+          
+        -var parent_id = locals.parent_id || ''
+        -var type = locals.type || ''
+        -var name = locals.name || ''
+        -var address = locals.address || ''
+        input(name="name" type="name" class="form-control" placeholder="User Name" value="#{name}" required autofocus)
+        select(name="type" class="form-control" required )
+          option(value="" selected="selected") Select institution type
+            each t, i in types
+              option(value='#{i}', selected=i==type )=t
+        select(name="parent_id" class="form-control" required )
+          option(value="null" selected="selected") Select parent institute
+          option(value="0", selected=0==parent_id) None
+          if ps
+            each p, i in ps
+              if p.type != "school"
+                option(value='#{p.id}' selected=p.id==parent_id)=p.name+ ' - ' +p.type
+        
+        textarea(name="address" class="form-control" placeholder="Users address")=address
+        <button class="btn btn-lg btn-primary " type="submit">Submit</button>
+        <button class="btn btn-lg btn-primary" type="button" onClick="window.location.href='../';">Cancel</button>
+    div.col-xs.3
+    script.
+      jQuery(document).ready(function(){
+        validate.register('myFrm', {
+          name:'required', 
+          type:'required', 
+          
+          messages:{
+            name:'Name is required.', 
+            type:'Please select institute type'
+          }
+        });
+      });

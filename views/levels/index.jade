@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  h1 List of Levels
+  span.logout
+    a(href=baseUrl+'/add') add level
+  if message
+    span.msg= message
+  if error
+    span.error= error 
+  if levels[0]
+    table(class="table table-striped")
+      tr
+        th SNo.
+        th Name
+        th Level
+        th Parent
+        th Delete
+        
+      each l,i in levels
+        tr
+          td=i+start+1
+          td
+            a(href=baseUrl+'/edit/'+l.id)=l.name
+          td=l.level
+          td=l.parent_id
+          td
+            a(href=baseUrl+'/del/'+l.id onClick="return confirm('You really want to delete this level?');") X
+    div.text-center!= pages
+  else
+    span.msg No level found!
