@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+  h1 List of Courses
+  span.logout
+    a(href=baseUrl+'/add') add course
+  if message
+    span.msg= message
+  if error
+    span.error= error 
+  if rows[0]
+    table(class="table table-striped")
+      tr
+        th SNo.
+        th Name
+        th Level
+        th Delete
+        
+      each r,i in rows
+        tr
+          td=i+start+1
+          td
+            a(href=baseUrl+'/edit/'+r.id)=r.name
+          td=r.level_name
+          td
+            a(href=baseUrl+'/del/'+r.id onClick="return confirm('You really want to delete this course?');") X
+    div.text-center!= pages
+  else
+    span.msg No level found!

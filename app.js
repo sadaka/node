@@ -13,6 +13,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var institutions = require('./routes/institutions');
 var levels = require('./routes/levels');
+var courses = require('./routes/courses');
 var mysql = require('./config/mysql');
 
 
@@ -68,6 +69,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/institutions', institutions);
 app.use('/levels', levels);
+app.use('/courses', courses);
 
 
 /// catch 404 and forward to error handler
